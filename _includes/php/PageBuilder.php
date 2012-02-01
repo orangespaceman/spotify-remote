@@ -28,6 +28,8 @@ class PageBuilder {
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<link rel="apple-touch-icon-precomposed" href="./_includes/icons/apple.png"/>
+		<link rel="apple-touch-startup-image" href="./_includes/img/site/loading.png" />
+
 
 		<script src="http://www.google.com/jsapi"></script>
 		<script>
