@@ -30,8 +30,10 @@ on run args
 				set _album to album of current track
 				set _track_number to track number of current track
 				set _duration to duration of current track
-				set _position to player position
+				set _position to player position as text
 				set _volume to sound volume
+
+				set _position to my string_replace(",", ".", _position)
 				
 				-- condition : only get artwork if it's a new track
 				if current_album_escaped is not album of current track then
