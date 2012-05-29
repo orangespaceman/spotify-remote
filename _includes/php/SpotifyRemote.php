@@ -46,7 +46,7 @@ class SpotifyRemote {
 	 *
 	 */
 	private function _command($command, $args) {
-		$cmd = 'osascript ../applescripts/'.$command.'.applescript';
+		$cmd = 'sudo arch -i386 osascript ../applescripts/'.$command.'.applescript';
 		if ($args) {
 			$cmd .= ' "'.$args.'"';
 		}

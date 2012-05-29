@@ -8,8 +8,12 @@
 		$method = $_POST['method'];
 		unset($_POST['method']);
 		
-		$args = $_POST['args'];
-		unset($_POST['args']);
+		if (isset($_POST['args'])) {
+		  $args = $_POST['args'];
+		  unset($_POST['args']);
+		} else {
+		  $args = array();
+		}
 		
 		// run command
 		$result = $spotifyRemote->command($method, $args);

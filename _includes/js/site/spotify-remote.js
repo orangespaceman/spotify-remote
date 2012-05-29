@@ -151,9 +151,10 @@ var spotifyRemote = function(){
 			options.ajaxPath,
 			postData,
 			function(data, textStatus){
+
 				hideLoader();
 				result = $.parseJSON(data);
-				
+
 				// if this is a status update, update display
 				if (method == "status") {
 					updateDisplay(result);

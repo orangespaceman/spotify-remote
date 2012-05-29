@@ -2,7 +2,7 @@
 on run args
 	
 	-- is Spotify running?
-	if isRunning("Spotify") then
+	try
 
 		tell application "Spotify"
 
@@ -71,11 +71,11 @@ on run args
 		end tell
 		
 	-- Spotify not running
-	else
+	on error error_message
 		set output to "{
 			\"state\" : \"closed\"
 		}"
-	end if
+	end try
 	
 end run
 
@@ -99,13 +99,15 @@ end saveImage
 -- convert tiff to jpeg for web display
 on convert_tiff_to_jpeg(source_file, new_name, results_folder)
 	try
-		set the target_path to ((results_folder as string) & new_name) as string
+		set target_path to ((results_folder as string) & new_name) as string
 		with timeout of 15 seconds
 			tell application "Image Events"
 				launch
+				
 				set this_image to open file (source_file as string)
-				save this_image as JPEG in file target_path with icon
+				save this_image as JPEG in file target_path 
 				close this_image
+				
 			end tell
 		end timeout
 	on error error_message
@@ -122,9 +124,3 @@ on string_replace(needle, haystack, str)
 	set str to new_str as string
 	return the str
 end string_replace
-
-
--- Function to check if an application is running
-on isRunning(appName)
-	tell application "System Events" to (name of processes) contains appName
-end isRunning
