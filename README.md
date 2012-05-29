@@ -8,6 +8,16 @@ A basic browser-based remote control for Spotify, optimised for mobile and deskt
 Should work on a mac that has Spotify, Apache and PHP.
 
 
+## Installation
+
+You will need to edit the sudoers file (using [visudo](http://www.gratisoft.us/sudo/visudo.man.html)) to grant permissions for the default apache user to execute the applescripts required by the Spotify Remote.
+
+The following line works for the default Apache installed on OS X 10.7 Lion:
+
+`%_www ALL=(ALL) NOPASSWD: ALL`
+
+
+
 ## Ability
 
 Setters: 
