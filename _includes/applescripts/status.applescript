@@ -45,12 +45,14 @@ on run args
 					set album_changed to false
 				end if 
 
+				set track_escaped to my string_replace("\"", "'", _track)
+
 				-- format JSON
 				set output to "{
 					\"running\" : true,
 					\"playing\" : true,
 					\"state\" : \"" & _state & "\",
-					\"track\": \"" & _track & "\",
+					\"track\": \"" & track_escaped & "\",
 					\"artist\": \"" & _artist & "\",
 					\"album\": \"" & _album & "\",
 					\"duration\": " & _duration & ",
