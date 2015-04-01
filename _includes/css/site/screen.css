@@ -3,16 +3,16 @@
  */
 	/* quick reset */
 		* { margin:0; padding:0; }
-		
+
 		/*	Hide only visually, but have it available for screenreaders: h5bp.com/v */
 		.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
-		
+
 		body	{
 			font:62.5%/1.25 Helvetica, Arial, sans-serif;
 			background:#000;
 			color:#fff;
 		}
-		
+
 		p		{ font-size:12px; }
 		a		{ text-decoration:none; color:#fff; }
 
@@ -27,8 +27,8 @@
 			height:100%;
 			overflow:hidden;
 		}
-		
-	
+
+
 	/* header */
 		#head {
 			position:absolute;
@@ -41,7 +41,7 @@
 			z-index:2;
 			background:url(../../img/site/bg_gradient_black-transparent_24.png) transparent repeat-x left bottom;
 		}
-		
+
 		/* track details */
 			#track-name {
 				font-weight:bold;
@@ -49,13 +49,13 @@
 			#album {
 				font-style:italic;
 			}
-		
+
 
 		/* progress bar */
 			#progress {
 				margin-top:5px;
 			}
-			
+
 			#time-elapsed,
 			#time-remaining {
 				display:inline-block;
@@ -69,9 +69,9 @@
 				margin:0 10px;
 				top:-1px;
 				background:#333;
-				   -moz-border-radius: 3px; 
-				-webkit-border-radius: 3px; 
-						border-radius: 3px; 
+				   -moz-border-radius: 3px;
+				-webkit-border-radius: 3px;
+						border-radius: 3px;
 				-moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; /* stop leaking */
 			}
 
@@ -84,13 +84,13 @@
 				margin-left:-1px;
 				padding-left:2px;
 				min-width:1px;
-				   -moz-border-radius: 3px; 
-				-webkit-border-radius: 3px; 
-						border-radius: 3px; 
+				   -moz-border-radius: 3px;
+				-webkit-border-radius: 3px;
+						border-radius: 3px;
 				-moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; /* stop leaking */
 			}
-		
-	
+
+
 	/* album art */
 		#status {
 			position:absolute;
@@ -104,8 +104,8 @@
 			background-attachment:fixed;
 			background-size:contain;
 		}
-		
-		
+
+
 	/* footer */
 		#foot {
 			position:absolute;
@@ -119,37 +119,37 @@
 			z-index:2;
 			background:url(../../img/site/bg_gradient_transparent-black_24.png) transparent repeat-x left top;
 		}
-		
+
 		/* volume */
 			#volume {
 				margin-bottom:5px;
 			}
-			
+
 			#volume p {
 				display:inline-block;
 				position:relative;
 				top:4px;
 			}
-			
+
 			#volume a {
 				display:block;
 				width:16px;
 				height:16px;
 				background:url(../../img/site/audio_volume_low.png) transparent no-repeat;
 			}
-			
+
 			#volume p#volume-up a {
 				background-image:url(../../img/site/audio_volume_high.png);
 			}
-			
-		
+
+
 		/* buttons */
 			#play-pause,
 			#next,
 			#previous {
 				display:inline-block;
 			}
-		
+
 			#play-pause a,
 			#next a,
 			#previous a {
@@ -160,13 +160,13 @@
 				background:url(../../img/site/sprite_play_controls_24.png) #f90 no-repeat;
 				border-radius:25px;
 			}
-		
+
 			.playing #play-pause a  { background-position:0 -100px; }
 			#next a				    { background-position:0 -200px; }
 			#previous a			    { background-position:0 -300px; }
-		
-		
-		/* loader */	
+
+
+		/* loader */
 			span#loading {
 				position:absolute;
 				right:10px;
@@ -180,12 +180,12 @@
 				display:none;
 				z-index:5;
 			}
-			
+
 			span#loading.show {
 				display:block;
 			}
-	
-	
+
+
 	/*
 	 * play states
 	 */
@@ -197,7 +197,7 @@
 		.loading #progress,
 		.loading #volume,
 		.loading #controls,
-		
+
 		.closed #status,
 		.closed #artist,
 		.closed #album,
@@ -206,7 +206,7 @@
 		.closed #progress,
 		.closed #volume,
 		.closed #controls,
-		
+
 		.stopped #status,
 		.stopped #artist,
 		.stopped #album,

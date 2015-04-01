@@ -1,18 +1,18 @@
 /**
  * @fileoverview Spotify Remote
- * 
+ *
  */
 var spotifyRemote = function(){
-	
+
 	// obj: status checking interval
 	var statusInterval = null,
-	
+
 	// obj: loading element
 	$loader = null,
-	
+
 	// get all command elements
 	$commands = null,
-	
+
 	// misc HTML elements
 	$play = null,
 	$body = null,
@@ -24,7 +24,7 @@ var spotifyRemote = function(){
 	$timeRemaining = null,
 	$progress = null,
 	$volume = null,
-	
+
 	// the current album (not non-null default)
 	currentAlbum = ".",
 
@@ -35,23 +35,23 @@ var spotifyRemote = function(){
 	 * @private
 	 */
 	 options = {
-		
+
 		/**
 		 * The location of the AJAX script on the server
 		 *
 		 * @var String
-		 */		
+		 */
 		ajaxPath : null,
-		
+
 		/**
 		 * The interval time (in seconds) between status checks
 		 *
-		 * 
+		 *
 		 */
 		interval : 1
 	},
-	
-	
+
+
 	/**
 	 * Initialise the functionality
 	 * @param {Object} options The initialisation options
@@ -59,20 +59,20 @@ var spotifyRemote = function(){
 	 * @public
 	 */
 	init = function(initOptions) {
-		
+
 		// save any options sent through to the intialisation script, if set
 		for (var option in options) {
 			if (!!initOptions[option] || initOptions[option] === false) {
 				options[option] = initOptions[option];
 			}
-			
+
 			// error check, if no element is specified then stop
 			if (!options[option] && options[option] !== false && options[option] !== 0) {
 				throw('Required option not specified: ' + option);
 				//return false;
 			}
 		}
-		
+
 		// get elements for later use
 		$body =			$("body");
 		$status =		$("#status");
@@ -83,67 +83,67 @@ var spotifyRemote = function(){
 		$timeRemaining = $("#time-remaining");
 		$progress =		$("#progress");
 		$volume =		$("#volume");
-		
+
 		// hide things initially
 		$body.addClass("loading");
-		
-		
+
+
 		// get all command elements
 		$commands = $("a[data-command]");
 		$commands.bind("click", function(e){
 			e.preventDefault();
 			runCommand($(this).data('command'));
 		});
-		
+
 
 		// add loader
 		$loader = $("<span />")
 			.attr('id', 'loading')
 			.appendTo('#wrapper');
-		
-		
+
+
 		// check status every x seconds
 		statusInterval = setInterval(getStatus, options.interval * 1000);
 	},
-	
-	
-	
+
+
+
 	/*
 	 * Check status
-	 */ 
+	 */
 	getStatus = function() {
 		_ajax("status", currentAlbum);
 	},
-	
-	
-	
+
+
+
 	/*
 	 * Run a command
-	 */ 
+	 */
 	runCommand = function(command) {
 		_ajax(command);
 	},
-	
-	
-	
+
+
+
 	/*
 	 * Ajax!
 	 */
 	_ajax = function(method, args) {
-	
+
 		showLoader();
-		
+
 		var postData, response, result;
 
 		postData = 'method='+method;
-		
+
 		// if specific arguments have been sent through, append
 		if (!!args) {
 			args = args.replace(/\'/g, "\\'");
-			args = encodeURIComponent(args);			
+			args = encodeURIComponent(args);
 			postData += '&args='+args;
 		}
-		
+
 		postData += '&random='+Math.random();
 
 		// submit request
@@ -158,20 +158,20 @@ var spotifyRemote = function(){
 				// if this is a status update, update display
 				if (method == "status") {
 					updateDisplay(result);
-				}				
+				}
 			});
 	},
-	
-	
+
+
 	/*
 	 * show...loader
 	 */
 	showLoader = function() {
 		$loader.addClass('show');
 	},
-	
-	
-	
+
+
+
 	/*
 	 * hide...loader
 	 */
@@ -184,41 +184,39 @@ var spotifyRemote = function(){
 	 * update display based on ajax json return
 	 */
 	updateDisplay = function(status) {
-		
+
+		var bodyClass;
+
 		// set state
 		if (status && status.state) {
-			$body.attr("class", status.state);
-		
+
 			// switch on status types
 			switch(status.state) {
-				
-				case "closed":
-					$trackName.text("Spotify ain't running!");				  
-				break;
 
 				case "stopped":
 					$trackName.text("Spotify ain't playing!");
+					bodyClass = status.state;
 				break;
-				
+
 				case "playing":
 				case "paused":
-					
+
 					var position = Math.round(status.position);
-		
+
 					// set text values
 					$trackName.text(status.track);
 					$artist.text(status.artist);
 					$album.text(status.album);
 					$timeElapsed.text(secondsToMinutes(position));
 					$timeRemaining.text(secondsToMinutes(status.duration - position));
-			
+
 					// progress bar
 					var progressBarWidth = ((status.position / status.duration) * 100).toFixed(2);
 					$progress.find(".progress-bar-fill").css({ width: progressBarWidth+"%"});
-			
+
 					// volume bar
 					$volume.find(".progress-bar-fill").css({ width: status.volume+"%"});
-			
+
 					// load new image?
 					if (status.album_changed) {
 						var time = new Date().getTime();
@@ -229,18 +227,34 @@ var spotifyRemote = function(){
 									.animate({opacity:1}, 250);
 							});
 					}
-					
+
 					// store current album, if set - for checking next time
 					if (status && status['album']) {
 						currentAlbum = status.album;
 					}
-					
+
+					bodyClass = status.state;
+
+				break;
+
+				case "closed":
+					$trackName.text("Spotify ain't running!");
+					bodyClass = status.state;
+				break;
+
+
+				default:
+					$trackName.text("Error: " + status.state);
+					bodyClass = "closed";
 				break;
 			}
+
+
+			$body.attr("class", bodyClass);
 		}
 	},
-	
-		 
+
+
 	 /*
 	  * convert seconds to minutes (and seconds)
 	  */
@@ -251,7 +265,7 @@ var spotifyRemote = function(){
 		 if (secs < 10) { secs = "0"+secs; }
 		 return mins+":"+secs;
 	 };
-	
+
 
 	/*
 	 * Return value, expose certain methods above

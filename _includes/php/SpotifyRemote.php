@@ -18,7 +18,7 @@ class SpotifyRemote {
 		'volume-up' => 'volume-up',
 		'volume-down' => 'volume-down'
 	);
-	
+
 
 	/*
 	 *
@@ -26,8 +26,8 @@ class SpotifyRemote {
 	public function __construct() {
 
 	}
-	
-	
+
+
 	/*
 	 * Check to see if the command is valid
 	 *
@@ -38,15 +38,15 @@ class SpotifyRemote {
 			return $this->_command($this->commands[$command], $args);
 		}
 	}
-		
-	
+
+
 	/*
 	 * Run command
-	 * 
+	 *
 	 *
 	 */
 	private function _command($command, $args) {
-		$cmd = 'sudo arch -i386 osascript ../applescripts/'.$command.'.applescript';
+		$cmd = 'osascript ../applescripts/'.$command.'.applescript';
 		if ($args) {
 			$cmd .= ' "'.$args.'"';
 		}
